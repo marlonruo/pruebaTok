@@ -27,15 +27,47 @@
 <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
-<link href="css/nouislider.css" rel="stylesheet">
+<script src="js/jquery-1.11.2.js"></script>
 <script src="https://static.opentok.com/v2/js/opentok.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <title>ConoceME!</title>
+<script>
+function probar(){
+navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+
+navigator.getUserMedia (
+
+   // constraints
+   {
+      video: true,
+      audio: false
+   },
+
+   // successCallback
+   function(localMediaStream) {
+      var video = document.querySelector('video');
+      video.src = window.URL.createObjectURL(localMediaStream);
+   },
+   
+   // errorCallback
+   function(err) {
+    console.log("OcurriÃ³ el siguiente error: " + err);
+   }
+
+);
+}
+	
+</script>
 </head>
 
 
 <body>
 <!-- OpenTok.js library -->
+
+<div id='pepe' style="position: absolute; width: 50px; height: 50px; cursor: pointer; top: 500px; background:rgba(0,0,0,1.00)"></div>
+
 <script src="https://static.opentok.com/v2/js/opentok.js"></script>
 <script>
 
@@ -49,15 +81,14 @@ var session = OT.initSession(apiKey, sessionId)
 session.connect(token, function(error) {
    // create publisher
    var publisher = OT.initPublisher();
-   alert('aqui')
-   publisher.on({
+  /* publisher.on({
 	  accessAllowed: function (event) {
 		alert('permiido')
 	  },
 	  accessDenied: function accessDeniedHandler(event) {
 		alert('no permiido')
 	  }
-	});
+	});*/
    session.publish(publisher);
 })
 
@@ -66,6 +97,41 @@ session.on('streamCreated', function(event) {
    session.subscribe(event.stream);
 });
 
+
+	navigator.getUserMedia = ( navigator.getUserMedia ||
+                       navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+
+	navigator.getUserMedia (
+
+	   // constraints
+	   {
+		  video: true,
+		  audio: false
+	   },
+
+	   // successCallback
+	   function(localMediaStream) {
+		  var video = document.querySelector(video);
+		  video.src = window.URL.createObjectURL(localMediaStream);
+	   },
+
+	   // errorCallback
+	   function(err) {
+		console.log("Ocurrió el siguiente error: " + err);
+	   }
+
+	);
+	
+
+	$('#pepe').click(function(){
+		probar()
+	})
+	
 </script>
+
+<video></video>
+
 </body>
 </html>
