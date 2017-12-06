@@ -49,10 +49,8 @@ var session = OT.initSession(apiKey, sessionId)
 session.connect(token, function(error) {
    // create publisher
    var publisher = OT.initPublisher();
-   session.publish(publisher);
-	
-	
-	publisher.on({
+   alert('aqui')
+   publisher.on({
 	  accessAllowed: function (event) {
 		alert('permiido')
 	  },
@@ -60,8 +58,7 @@ session.connect(token, function(error) {
 		alert('no permiido')
 	  }
 	});
-	
-	accessDialogOpened()
+   session.publish(publisher);
 })
 
 // create subscriber	
